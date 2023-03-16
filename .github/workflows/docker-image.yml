@@ -20,7 +20,7 @@ jobs:
       uses: Azure/docker-login@v1
       with:
         # Container registry username
-        username: sbacr02.azurecr.io
+        username: sbacr02
         # Container registry password
         password: yaqRg5qwAcDq/X/GpdknvUuYTzP92fHH2V0vNJkw81+ACRC7yoKh 
         # Container registry server url
