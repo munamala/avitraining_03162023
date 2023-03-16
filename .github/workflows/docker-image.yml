@@ -1,0 +1,45 @@
+name: Docker Image CI
+
+on:
+  push:
+    branches: [ "master" ]
+  pull_request:
+    branches: [ "master" ]
+
+jobs:
+
+  build:
+
+    runs-on: ubuntu-latest
+
+    steps:
+    - uses: actions/checkout@v3
+    - name: Build the Docker image
+      run: docker build . --file Dockerfile --tag sbacr02.azurecr.io/avitraining_accessment_03162023:latest
+    - name: Azure Container Registry Login
+      uses: Azure/docker-login@v1
+      with:
+        # Container registry username
+        username: sbacr02.azurecr.io
+        # Container registry password
+        password: yaqRg5qwAcDq/X/GpdknvUuYTzP92fHH2V0vNJkw81+ACRC7yoKh 
+        # Container registry server url
+        login-server: sbacr02.azurecr.io
+    - name: push the docker image
+      run: docker push sbacr02.azurecr.io/avitraining_assessment_03162023:latest
+      
+      
+  deploy:
+    runs-on: ubuntu-latest
+    steps:
+    - name: Azure Kubernetes set context
+      uses: Azure/aks-set-context@v3
+      with:
+        kubeconfig: ${{secrets.KUBECONFIG_SS}}
+      id: login
+    
+    - name: Kubernetes Deployment
+      run: kubectl apply -f deployment.yaml
+    - name: Service Deployment
+      run: kubectl apply -f service.yaml
+  
