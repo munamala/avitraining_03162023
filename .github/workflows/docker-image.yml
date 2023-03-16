@@ -15,7 +15,7 @@ jobs:
     steps:
     - uses: actions/checkout@v3
     - name: Build the Docker image
-      run: docker build . --file Dockerfile --tag sbacr02.azurecr.io/avitraining_accessment_03162023:latest
+      run: docker build . --file Dockerfile --tag sbacr02.azurecr.io/avitraining_assessment_03162023:latest
     - name: Azure Container Registry Login
       uses: Azure/docker-login@v1
       with:
