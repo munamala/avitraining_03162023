@@ -1,0 +1,22 @@
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: avitraining_03162023
+spec:
+  selector:
+    matchLabels:
+      app: avitraining_03162023
+  template:
+    metadata:
+      labels:
+        app: avitraining_03162023
+    spec:
+      containers:
+      - name: avitraining_03162023
+        image: sbacr02.azurecr.io/avitraining_assessment_03162023:latest
+        resources:
+          limits:
+            memory: "128Mi"
+            cpu: "500m"
+        ports:
+        - containerPort: 5296
